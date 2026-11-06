@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "title": "CAVADOV BARBER — Premium Kişi Gözəlliyi",
+    "description": "Bakıda premium barber təcrübəsi. Klassik kəsim, fade, saqqal və VIP ritual."
+  },
+  "nav": {
+    "services": "Xidmətlər",
+    "barbers": "Ustalar",
+    "works": "İşlər",
+    "gallery": "Qalereya",
+    "tiktok": "TikTok",
+    "beforeAfter": "Əvvəl/Sonra",
+    "booking": "Rezervasiya",
+    "about": "Haqqımızda",
+    "reviews": "Rəylər",
+    "contact": "Əlaqə",
+    "bookNow": "Rezerv et",
+    "menu": "Menyu",
+    "home": "Ana səhifə"
+  },
+  "homeMenu": {
+    "eyebrow": "Menyu",
+    "title": "Bölmələr",
+    "subtitle": "İstədiyin bölməni seç — qiymət, işlər, rezervasiya və əlaqə buradadır."
+  },
+  "dock": {
+    "label": "Mobil naviqasiya",
+    "home": "Ana",
+    "menu": "Menyu",
+    "book": "Rezerv",
+    "call": "Zəng"
+  },
+  "hero": {
+    "brand": "CAVADOV BARBER",
+    "headline": "Forma. Karakter. Prestij.",
+    "sub": "Kişi üslubunun ən yüksək səviyyəsi — hər detal düşünülüb.",
+    "cta": "Rezerv et",
+    "explore": "İşlərə bax"
+  },
+  "marquee": {
+    "text": "SAÇ 7 AZN  ·  SAQQAL 5 AZN  ·  MASKA 5–10 AZN  ·  BƏY SAÇI 70 AZN  ·  POLAD BARBER  ·  "
+  },
+  "services": {
+    "eyebrow": "Xidmətlər",
+    "title": "Qiymət menyusu",
+    "subtitle": "Aydın qiymətlər — saç, saqqal, maska və digər xidmətlər.",
+    "from": "başlayaraq",
+    "min": "dəq",
+    "book": "Seç"
+  },
+  "barbers": {
+    "eyebrow": "Usta",
+    "title": "POLAD BARBER",
+    "subtitle": "CAVADOV BARBER-in ustası — dəqiq kəsim və təmiz stil.",
+    "years": "il təcrübə",
+    "bookWith": "Polad ilə rezerv et",
+    "masterBadge": "Baş Usta",
+    "priceCut": "Saç",
+    "priceCombo": "Saqqal"
+  },
+  "poladWorks": {
+    "eyebrow": "Polad × Nəticələr",
+    "title": "Usta + kəsimlər",
+    "subtitle": "Polad ustanın işi və müştəri kəsimləri bir yerdə — tattoosuz, təmiz, yüksək keyfiyyət.",
+    "mergeEyebrow": "Birlikdə",
+    "mergeTitle": "Polad və saç kəsimləri",
+    "result": "Nəticə",
+    "cta": "Polad ilə rezerv et"
+  },
+  "gallery": {
+    "eyebrow": "Qalereya",
+    "title": "Kəsimdən sonra",
+    "subtitle": "Yüksək keyfiyyətli nəticə şəkilləri — səliqəli portfoliomuz.",
+    "after": "Nəticə",
+    "view": "Bax",
+    "close": "Bağla"
+  },
+  "tiktok": {
+    "eyebrow": "TikTok",
+    "title": "@cavadov_barber",
+    "subtitle": "Videolar və mətnlər birbaşa TikTok hesabımızdan — səliqəli və yüksək keyfiyyət.",
+    "follow": "TikTok-da izlə"
+  },
+  "beforeAfter": {
+    "eyebrow": "Transformasiya",
+    "title": "Əvvəl / Sonra",
+    "subtitle": "Eyni müştəri — dəyişimi sürüşdürərək gör. TikTok-dakı real iş.",
+    "before": "Əvvəl",
+    "after": "Sonra"
+  },
+  "booking": {
+    "eyebrow": "Rezervasiya",
+    "title": "Online rezervasiya",
+    "subtitle": "Xidmət, usta və vaxt seç — təsdiq WhatsApp-a göndərilir.",
+    "steps": {
+      "service": "Xidmət",
+      "barber": "Usta",
+      "datetime": "Tarix & Saat",
+      "details": "Məlumat"
+    },
+    "selectService": "Xidmət seçin",
+    "selectBarber": "Usta seçin",
+    "selectDate": "Tarix",
+    "selectTime": "Saat",
+    "noSlots": "Bu gün üçün boş slot yoxdur",
+    "name": "Ad Soyad",
+    "phone": "Telefon",
+    "notes": "Qeyd (istəyə bağlı)",
+    "next": "Davam et",
+    "back": "Geri",
+    "submit": "Rezervasiyanı təsdiqlə",
+    "submitting": "Göndərilir...",
+    "successTitle": "Rezervasiya qəbul olundu",
+    "successText": "Təsdiq üçün WhatsApp-a keçid edə bilərsiniz.",
+    "whatsapp": "WhatsApp-da aç",
+    "error": "Xəta baş verdi. Yenidən cəhd edin.",
+    "azn": "AZN"
+  },
+  "about": {
+    "eyebrow": "Haqqımızda",
+    "title": "Kişi rituallarının evi",
+    "p1": "CAVADOV BARBER yalnız saç kəsimi deyil — tempoya, detalə və xarakterə hörmət edən bir məkan.",
+    "p2": "Klassik texnikalar müasir siluetlərlə birləşir. Hər ziyarət sakit, dəqiq və yadda qalan olmalıdır.",
+    "stat1": "5+",
+    "stat1Label": "il təcrübə",
+    "stat2": "7",
+    "stat2Label": "AZN saç",
+    "stat3": "5",
+    "stat3Label": "AZN saqqal"
+  },
+  "reviews": {
+    "eyebrow": "Rəylər",
+    "title": "Müştərilər nə deyir"
+  },
+  "contact": {
+    "eyebrow": "Əlaqə",
+    "title": "Bizi tapın",
+    "subtitle": "Balaxanıda — gəlin, rezerv edin, qalın.",
+    "addressLabel": "Ünvan",
+    "address": "Balaxanı, 6-cı mədən, Kafe Varın yanı, Bakı",
+    "hoursLabel": "İş saatları",
+    "hours": "Hər gün: 10:00 – 00:00",
+    "phoneLabel": "Telefon",
+    "phone": "055 353 53 68",
+    "emailLabel": "Email",
+    "email": "hello@cavadovbarber.az",
+    "whatsapp": "WhatsApp ilə yaz",
+    "mapTitle": "Xəritə"
+  },
+  "footer": {
+    "tagline": "Premium kişi gözəlliyi — Bakı.",
+    "rights": "Bütün hüquqlar qorunur."
+  },
+  "loader": {
+    "loading": "Yüklənir"
+  },
+  "whatsappFab": {
+    "label": "WhatsApp"
+  }
+}

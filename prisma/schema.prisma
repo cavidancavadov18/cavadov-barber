@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Barber {
+  id         String    @id @default(cuid())
+  slug       String    @unique
+  nameAz     String
+  nameEn     String
+  roleAz     String
+  roleEn     String
+  bioAz      String
+  bioEn      String
+  image      String
+  experience Int
+  bookings   Booking[]
+  createdAt  DateTime  @default(now())
+}
+
+model Service {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  nameAz        String
+  nameEn        String
+  descriptionAz String
+  descriptionEn String
+  price         Int
+  priceNoteAz   String?
+  priceNoteEn   String?
+  durationMin   Int
+  image         String
+  sortOrder     Int       @default(0)
+  bookings      Booking[]
+  createdAt     DateTime  @default(now())
+}
+
+model Booking {
+  id           String   @id @default(cuid())
+  barberId     String
+  serviceId    String
+  customerName String
+  phone        String
+  date         String
+  time         String
+  locale       String   @default("az")
+  notes        String?
+  status       String   @default("confirmed")
+  barber       Barber   @relation(fields: [barberId], references: [id])
+  service      Service  @relation(fields: [serviceId], references: [id])
+  createdAt    DateTime @default(now())
+
+  @@unique([barberId, date, time])
+  @@index([date, barberId])
+}
+
+model GalleryItem {
+  id        String   @id @default(cuid())
+  src       String
+  alt       String
+  labelAz   String
+  labelEn   String
+  focus     String   @default("object-center")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Review {
+  id        String   @id @default(cuid())
+  nameAz    String
+  nameEn    String
+  textAz    String
+  textEn    String
+  rating    Int      @default(5)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model TikTokVideo {
+  id        String   @id @default(cuid())
+  tiktokId  String   @unique
+  url       String
+  cover     String
+  titleAz   String
+  titleEn   String
+  focus     String   @default("object-center")
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model BeforeAfter {
+  id        String   @id @default(cuid())
+  before    String
+  after     String
+  captionAz String
+  captionEn String
+  tiktokUrl String?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model WorkItem {
+  id        String   @id @default(cuid())
+  kind      String   @default("tile")
+  src       String
+  alt       String
+  labelAz   String
+  labelEn   String
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id            String   @id @default("main")
+  addressAz     String
+  addressEn     String
+  phoneDisplay  String
+  phoneTel      String
+  whatsapp      String
+  email         String
+  hoursAz       String
+  hoursEn       String
+  weekdayStart  Int      @default(10)
+  weekdayEnd    Int      @default(24)
+  sundayStart   Int      @default(10)
+  sundayEnd     Int      @default(24)
+  mapEmbedUrl   String   @default("https://www.openstreetmap.org/export/embed.html?bbox=49.84%2C40.36%2C49.87%2C40.38&layer=mapnik&marker=40.370%2C49.855")
+  tiktokProfile String
+  heroVideo     String
+  heroImage     String
+  aboutImage    String
+  brandAvatar   String
+  updatedAt     DateTime @updatedAt
+}

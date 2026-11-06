@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "title": "CAVADOV BARBER — Premium Men's Grooming",
+    "description": "Premium barber experience in Baku. Classic cuts, fades, beard work, and VIP rituals."
+  },
+  "nav": {
+    "services": "Services",
+    "barbers": "Barbers",
+    "works": "Works",
+    "gallery": "Gallery",
+    "tiktok": "TikTok",
+    "beforeAfter": "Before/After",
+    "booking": "Booking",
+    "about": "About",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "bookNow": "Book Now",
+    "menu": "Menu",
+    "home": "Home"
+  },
+  "homeMenu": {
+    "eyebrow": "Menu",
+    "title": "Sections",
+    "subtitle": "Pick a section — prices, work, booking and contact are all here."
+  },
+  "dock": {
+    "label": "Mobile navigation",
+    "home": "Home",
+    "menu": "Menu",
+    "book": "Book",
+    "call": "Call"
+  },
+  "hero": {
+    "brand": "CAVADOV BARBER",
+    "headline": "Form. Character. Prestige.",
+    "sub": "The highest standard of men's style — every detail considered.",
+    "cta": "Book Now",
+    "explore": "View work"
+  },
+  "marquee": {
+    "text": "HAIR 7 AZN  ·  BEARD 5 AZN  ·  MASK 5–10 AZN  ·  GROOM HAIR 70 AZN  ·  POLAD BARBER  ·  "
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "Price menu",
+    "subtitle": "Clear pricing — hair, beard, mask and more.",
+    "from": "from",
+    "min": "min",
+    "book": "Select"
+  },
+  "barbers": {
+    "eyebrow": "Barber",
+    "title": "POLAD BARBER",
+    "subtitle": "Master barber at CAVADOV BARBER — precise cuts and clean style.",
+    "years": "years experience",
+    "bookWith": "Book with Polad",
+    "masterBadge": "Master",
+    "priceCut": "Hair",
+    "priceCombo": "Beard"
+  },
+  "poladWorks": {
+    "eyebrow": "Polad × Results",
+    "title": "Master + cuts",
+    "subtitle": "Polad's craft merged with client results — tattoo-free, clean, high quality.",
+    "mergeEyebrow": "Together",
+    "mergeTitle": "Polad and the cuts",
+    "result": "Result",
+    "cta": "Book with Polad"
+  },
+
+  "gallery": {
+    "eyebrow": "Gallery",
+    "title": "After the cut",
+    "subtitle": "High-quality finished results — our clean portfolio.",
+    "after": "Result",
+    "view": "View",
+    "close": "Close"
+  },
+  "tiktok": {
+    "eyebrow": "TikTok",
+    "title": "@cavadov_barber",
+    "subtitle": "Videos and captions straight from our TikTok — neat and high quality.",
+    "follow": "Follow on TikTok"
+  },
+  "beforeAfter": {
+    "eyebrow": "Transformation",
+    "title": "Before / After",
+    "subtitle": "Same client — drag to see the change. Real work from TikTok.",
+    "before": "Before",
+    "after": "After"
+  },
+  "booking": {
+    "eyebrow": "Booking",
+    "title": "Online reservation",
+    "subtitle": "Choose service, barber, and time — confirmation opens in WhatsApp.",
+    "steps": {
+      "service": "Service",
+      "barber": "Barber",
+      "datetime": "Date & Time",
+      "details": "Details"
+    },
+    "selectService": "Select a service",
+    "selectBarber": "Select a barber",
+    "selectDate": "Date",
+    "selectTime": "Time",
+    "noSlots": "No available slots for this day",
+    "name": "Full name",
+    "phone": "Phone",
+    "notes": "Notes (optional)",
+    "next": "Continue",
+    "back": "Back",
+    "submit": "Confirm booking",
+    "submitting": "Submitting...",
+    "successTitle": "Booking confirmed",
+    "successText": "You can open WhatsApp to send the confirmation.",
+    "whatsapp": "Open in WhatsApp",
+    "error": "Something went wrong. Please try again.",
+    "azn": "AZN"
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "A house of men's rituals",
+    "p1": "CAVADOV BARBER is more than a haircut — a space that respects pace, detail, and character.",
+    "p2": "Classic technique meets modern silhouette. Every visit should feel calm, precise, and memorable.",
+    "stat1": "5+",
+    "stat1Label": "years craft",
+    "stat2": "7",
+    "stat2Label": "AZN hair",
+    "stat3": "5",
+    "stat3Label": "AZN beard"
+  },
+  "reviews": {
+    "eyebrow": "Reviews",
+    "title": "What clients say"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Find us",
+    "subtitle": "In Balakhani — come in, book in, stay awhile.",
+    "addressLabel": "Address",
+    "address": "Balakhani, 6th mine, near Cafe Varin, Baku",
+    "hoursLabel": "Hours",
+    "hours": "Every day: 10:00 – 00:00",
+    "phoneLabel": "Phone",
+    "phone": "055 353 53 68",
+    "emailLabel": "Email",
+    "email": "hello@cavadovbarber.az",
+    "whatsapp": "Message on WhatsApp",
+    "mapTitle": "Map"
+  },
+  "footer": {
+    "tagline": "Premium men's grooming — Baku.",
+    "rights": "All rights reserved."
+  },
+  "loader": {
+    "loading": "Loading"
+  },
+  "whatsappFab": {
+    "label": "WhatsApp"
+  }
+}
