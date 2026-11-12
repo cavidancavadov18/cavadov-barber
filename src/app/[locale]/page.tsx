@@ -1,8 +1,13 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { HomeExperience } from "@/components/layout/HomeExperience";
-import { prisma } from "@/lib/prisma";
+import { backendFetch } from "@/lib/backend";
 
 export const dynamic = "force-dynamic";
+
+type Catalog = {
+  services: Parameters<typeof HomeExperience>[0]["services"];
+  barbers: Parameters<typeof HomeExperience>[0]["barbers"];
+};
 
 export default async function HomePage({
   params,
@@ -13,10 +18,16 @@ export default async function HomePage({
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "marquee" });
 
-  const [services, barbers] = await Promise.all([
-    prisma.service.findMany({ orderBy: { sortOrder: "asc" } }),
-    prisma.barber.findMany({ orderBy: { experience: "desc" } }),
-  ]);
+  let services: Catalog["services"] = [];
+  let barbers: Catalog["barbers"] = [];
+  try {
+    const catalog = await backendFetch<Catalog>("/api/catalog");
+    services = catalog.services || [];
+    barbers = catalog.barbers || [];
+  } catch {
+    services = [];
+    barbers = [];
+  }
 
   return (
     <main>

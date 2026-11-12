@@ -44,6 +44,12 @@ next-env.d.ts
 /prisma/*.db-journal
 /prisma/seed.db
 
+# python
+backend/.venv/
+backend/**/__pycache__/
+*.py[cod]
+.Python
+
 # junk
 err.html
 admin-cookies.txt

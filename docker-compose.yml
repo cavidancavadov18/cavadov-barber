@@ -1,17 +1,42 @@
 services:
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: cavadov-barber-api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: "file:/app/data/prod.db"
+      ADMIN_SECRET: ${ADMIN_SECRET:-cavadov-barber-admin-secret-change-me}
+      WHATSAPP_NUMBER: ${WHATSAPP_NUMBER:-994553535368}
+      NEXT_PUBLIC_WHATSAPP_NUMBER: ${NEXT_PUBLIC_WHATSAPP_NUMBER:-994553535368}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3080}
+      UPLOAD_DIR: /app/public/media/uploads
+      COOKIE_SECURE: "false"
+    volumes:
+      - barber-data:/app/data
+      - ./public/media/uploads:/app/public/media/uploads
+      - ./prisma/dev.db:/app/data/prod.db
+    restart: unless-stopped
+
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BACKEND_URL: http://api:8000
     container_name: cavadov-barber
     ports:
       - "3080:3000"
     environment:
-      DATABASE_URL: "file:/app/data/prod.db"
-      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+      BACKEND_URL: http://api:8000
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3080}
       NEXT_PUBLIC_WHATSAPP_NUMBER: ${NEXT_PUBLIC_WHATSAPP_NUMBER:-994553535368}
       WHATSAPP_NUMBER: ${WHATSAPP_NUMBER:-994553535368}
       ADMIN_SECRET: ${ADMIN_SECRET:-cavadov-barber-admin-secret-change-me}
-    volumes:
-      - barber-data:/app/data
+    depends_on:
+      - api
     restart: unless-stopped
 
 volumes:

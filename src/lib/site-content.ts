@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { backendFetch } from "@/lib/backend";
 import {
   ABOUT_IMAGE,
   BRAND_AVATAR,
@@ -137,43 +137,25 @@ const fallbackWorks: WorkItemData[] = [
   { id: "w9", kind: "tile", src: "/media/unique/tt-14.jpg", alt: "Finish", labelAz: "Finish", labelEn: "Finish" },
 ];
 
+type ContentResponse = {
+  settings: SiteSettingsData | null;
+  gallery: GalleryItemData[];
+  reviews: ReviewData[];
+  tiktok: TikTokItemData[];
+  beforeAfter: BeforeAfterData[];
+  works: WorkItemData[];
+};
+
 export async function getSiteContent(): Promise<SiteContent> {
   try {
-    const [settings, gallery, reviewRows, tiktok, beforeAfter, works] = await Promise.all([
-      prisma.siteSettings.findUnique({ where: { id: "main" } }),
-      prisma.galleryItem.findMany({ orderBy: { sortOrder: "asc" } }),
-      prisma.review.findMany({ orderBy: { sortOrder: "asc" } }),
-      prisma.tikTokVideo.findMany({ orderBy: { sortOrder: "asc" } }),
-      prisma.beforeAfter.findMany({ orderBy: { sortOrder: "asc" } }),
-      prisma.workItem.findMany({ orderBy: { sortOrder: "asc" } }),
-    ]);
-
+    const data = await backendFetch<ContentResponse>("/api/content");
     return {
-      settings: settings
-        ? {
-            addressAz: settings.addressAz,
-            addressEn: settings.addressEn,
-            phoneDisplay: settings.phoneDisplay,
-            phoneTel: settings.phoneTel,
-            whatsapp: settings.whatsapp,
-            email: settings.email,
-            hoursAz: settings.hoursAz,
-            hoursEn: settings.hoursEn,
-            weekdayStart: settings.weekdayStart,
-            weekdayEnd: settings.weekdayEnd,
-            sundayStart: settings.sundayStart,
-            sundayEnd: settings.sundayEnd,
-            mapEmbedUrl: settings.mapEmbedUrl || MAP_DEFAULT,
-            tiktokProfile: settings.tiktokProfile,
-            heroVideo: settings.heroVideo,
-            heroImage: settings.heroImage,
-            aboutImage: settings.aboutImage,
-            brandAvatar: settings.brandAvatar,
-          }
+      settings: data.settings
+        ? { ...data.settings, mapEmbedUrl: data.settings.mapEmbedUrl || MAP_DEFAULT }
         : fallbackSettings,
       gallery:
-        gallery.length > 0
-          ? gallery
+        data.gallery?.length > 0
+          ? data.gallery
           : galleryImages.map((g, i) => ({
               id: `fallback-g-${i}`,
               src: g.src,
@@ -183,8 +165,8 @@ export async function getSiteContent(): Promise<SiteContent> {
               focus: g.focus,
             })),
       reviews:
-        reviewRows.length > 0
-          ? reviewRows
+        data.reviews?.length > 0
+          ? data.reviews
           : reviews.map((r) => ({
               id: r.id,
               nameAz: r.nameAz,
@@ -194,15 +176,8 @@ export async function getSiteContent(): Promise<SiteContent> {
               rating: r.rating,
             })),
       tiktok:
-        tiktok.length > 0
-          ? tiktok.map((t) => ({
-              id: t.id,
-              url: t.url,
-              cover: t.cover,
-              titleAz: t.titleAz,
-              titleEn: t.titleEn,
-              focus: t.focus,
-            }))
+        data.tiktok?.length > 0
+          ? data.tiktok
           : tiktokVideos.map((t) => ({
               id: t.id,
               url: t.url,
@@ -212,8 +187,8 @@ export async function getSiteContent(): Promise<SiteContent> {
               focus: t.focus,
             })),
       beforeAfter:
-        beforeAfter.length > 0
-          ? beforeAfter
+        data.beforeAfter?.length > 0
+          ? data.beforeAfter
           : beforeAfterPairs.map((p, i) => ({
               id: `fallback-ba-${i}`,
               before: p.before,
@@ -222,7 +197,7 @@ export async function getSiteContent(): Promise<SiteContent> {
               captionEn: p.captionEn,
               tiktokUrl: p.tiktokUrl,
             })),
-      works: works.length > 0 ? works : fallbackWorks,
+      works: data.works?.length > 0 ? data.works : fallbackWorks,
     };
   } catch {
     return {
