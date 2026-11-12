@@ -1,0 +1,8 @@
+# Backend is Python; keep GitHub language badge on the API, not the Next.js UI.
+src/** linguist-vendored
+prisma/** linguist-vendored
+*.css linguist-vendored
+next.config.* linguist-vendored
+middleware.ts linguist-vendored
+backend/** linguist-detectable
+*.py linguist-detectable
