@@ -25,7 +25,8 @@ export function bookingWhatsAppMessage(params: {
 }) {
   if (params.locale === "en") {
     const lines = [
-      "CAVADOV BARBER — New booking",
+      "CAVADOV BARBER — New booking request",
+      "",
       `Name: ${params.customerName}`,
       `Phone: ${params.phone}`,
       `Service: ${params.serviceName}${params.price != null ? ` (${params.price} AZN)` : ""}`,
@@ -34,11 +35,13 @@ export function bookingWhatsAppMessage(params: {
       `Time: ${params.time}`,
     ];
     if (params.notes) lines.push(`Notes: ${params.notes}`);
+    lines.push("", "Please reply to CONFIRM or CANCEL this booking.");
     return lines.join("\n");
   }
 
   const lines = [
-    "CAVADOV BARBER — Yeni rezervasiya",
+    "CAVADOV BARBER — Yeni rezervasiya sorğusu",
+    "",
     `Ad: ${params.customerName}`,
     `Telefon: ${params.phone}`,
     `Xidmət: ${params.serviceName}${params.price != null ? ` (${params.price} AZN)` : ""}`,
@@ -47,6 +50,7 @@ export function bookingWhatsAppMessage(params: {
     `Saat: ${params.time}`,
   ];
   if (params.notes) lines.push(`Qeyd: ${params.notes}`);
+  lines.push("", "Zəhmət olmasa TƏSDİQLƏ və ya LƏĞV ET yazaraq cavab verin.");
   return lines.join("\n");
 }
 

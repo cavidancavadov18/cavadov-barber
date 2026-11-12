@@ -88,6 +88,6 @@ export function SectionChrome({
   if (!active) return null;
 
   return (
-    <div className="min-h-[100svh] bg-[var(--bg)] pb-32 pt-24 md:pb-12 md:pt-28">{children}</div>
+    <div className="min-h-[100svh] bg-[var(--bg)] pb-36 pt-28 md:pb-12 md:pt-28">{children}</div>
   );
 }

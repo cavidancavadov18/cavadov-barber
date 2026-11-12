@@ -18,9 +18,18 @@ type BookingProps = {
 
 type SuccessPayload = {
   whatsappUrl: string;
+  serviceName: string;
+  barberName: string;
+  date: string;
+  time: string;
+  customerName: string;
+  phone: string;
+  notes: string | null;
+  priceLabel: string;
+  status: string;
 };
 
-const steps = ["service", "barber", "datetime", "details"] as const;
+const steps = ["service", "barber", "datetime", "details", "confirm"] as const;
 
 export function Booking({ services, barbers }: BookingProps) {
   const t = useTranslations("booking");
@@ -69,7 +78,6 @@ export function Booking({ services, barbers }: BookingProps) {
     return () => window.removeEventListener("hashchange", applyHash);
   }, [services, barbers]);
 
-  // Auto-select sole barber when entering barber step
   useEffect(() => {
     if (step === 1 && barbers.length === 1 && !barberId) {
       setBarberId(barbers[0].id);
@@ -115,11 +123,32 @@ export function Booking({ services, barbers }: BookingProps) {
   const selectedBarber = barbers.find((b) => b.id === barberId);
   const progress = ((step + 1) / steps.length) * 100;
 
+  const serviceLabel = selectedService
+    ? locale === "en"
+      ? selectedService.nameEn
+      : selectedService.nameAz
+    : "";
+  const barberLabel = selectedBarber
+    ? locale === "en"
+      ? selectedBarber.nameEn
+      : selectedBarber.nameAz
+    : "";
+  const priceLabel = selectedService
+    ? (locale === "en" ? selectedService.priceNoteEn : selectedService.priceNoteAz) ||
+      `${selectedService.price} ${t("azn")}`
+    : "";
+
   const canNext = () => {
     if (step === 0) return Boolean(serviceId);
     if (step === 1) return Boolean(barberId);
     if (step === 2) return Boolean(date && time);
-    return Boolean(name.trim().length >= 2 && phone.trim().length >= 7);
+    if (step === 3) return Boolean(name.trim().length >= 2 && phone.trim().length >= 7);
+    if (step === 4) {
+      return Boolean(
+        serviceId && barberId && date && time && name.trim().length >= 2 && phone.trim().length >= 7
+      );
+    }
+    return false;
   };
 
   function goNext() {
@@ -138,9 +167,22 @@ export function Booking({ services, barbers }: BookingProps) {
     setError("");
   }
 
+  function resetForm() {
+    setSuccess(null);
+    setStep(0);
+    setServiceId("");
+    setBarberId(barbers.length === 1 ? barbers[0].id : "");
+    setDate("");
+    setTime("");
+    setName("");
+    setPhone("");
+    setNotes("");
+    setError("");
+  }
+
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
-    if (step !== steps.length - 1) {
+    if (step < steps.length - 1) {
       goNext();
       return;
     }
@@ -164,14 +206,73 @@ export function Booking({ services, barbers }: BookingProps) {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || t("error"));
-      setSuccess({ whatsappUrl: data.whatsappUrl });
-      // Open WhatsApp confirmation for the shop
+
+      const booking = data.booking || {};
+      setSuccess({
+        whatsappUrl: data.whatsappUrl,
+        serviceName: booking.serviceName || serviceLabel,
+        barberName: booking.barberName || barberLabel,
+        date: booking.date || date,
+        time: booking.time || time,
+        customerName: booking.customerName || name.trim(),
+        phone: booking.phone || phone.trim(),
+        notes: booking.notes ?? (notes.trim() || null),
+        priceLabel: booking.priceNote || `${booking.price ?? selectedService?.price ?? ""} ${t("azn")}`,
+        status: booking.status || "pending",
+      });
       window.open(data.whatsappUrl, "_blank", "noopener,noreferrer");
     } catch (err) {
       setError(err instanceof Error ? err.message : t("error"));
     } finally {
       setSubmitting(false);
     }
+  }
+
+  function SummaryRows({
+    serviceName,
+    barberName,
+    dateValue,
+    timeValue,
+    customerName,
+    phoneValue,
+    notesValue,
+    priceValue,
+  }: {
+    serviceName: string;
+    barberName: string;
+    dateValue: string;
+    timeValue: string;
+    customerName: string;
+    phoneValue: string;
+    notesValue?: string | null;
+    priceValue: string;
+  }) {
+    const rows = [
+      { label: t("summaryService"), value: serviceName },
+      { label: t("summaryPrice"), value: priceValue },
+      { label: t("summaryBarber"), value: barberName },
+      { label: t("summaryDate"), value: dateValue },
+      { label: t("summaryTime"), value: timeValue },
+      { label: t("summaryName"), value: customerName },
+      { label: t("summaryPhone"), value: phoneValue },
+    ];
+    if (notesValue) rows.push({ label: t("summaryNotes"), value: notesValue });
+
+    return (
+      <dl className="grid gap-3 border border-[var(--line)] bg-black/25 p-4 sm:p-5">
+        {rows.map((row) => (
+          <div
+            key={row.label}
+            className="flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--line)] pb-2 last:border-b-0 last:pb-0"
+          >
+            <dt className="text-[0.65rem] uppercase tracking-[0.16em] text-[var(--gold)]">
+              {row.label}
+            </dt>
+            <dd className="text-sm text-[var(--gold-soft)] sm:text-base">{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+    );
   }
 
   if (!services.length || !barbers.length) {
@@ -199,10 +300,25 @@ export function Booking({ services, barbers }: BookingProps) {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              className="border border-[var(--line)] bg-[var(--surface)] p-8 text-center md:p-12"
+              className="border border-[var(--line)] bg-[var(--surface)] p-6 text-center md:p-10"
             >
               <p className="font-display text-3xl text-[var(--gold-soft)]">{t("successTitle")}</p>
-              <p className="mt-4 text-[var(--text-muted)]">{t("successText")}</p>
+              <p className="mt-3 text-[var(--text-muted)]">{t("successText")}</p>
+              <p className="mt-2 text-sm text-[var(--gold)]">{t("successPending")}</p>
+
+              <div className="mx-auto mt-8 max-w-lg text-left">
+                <SummaryRows
+                  serviceName={success.serviceName}
+                  barberName={success.barberName}
+                  dateValue={success.date}
+                  timeValue={success.time}
+                  customerName={success.customerName}
+                  phoneValue={success.phone}
+                  notesValue={success.notes}
+                  priceValue={success.priceLabel}
+                />
+              </div>
+
               <a
                 href={success.whatsappUrl}
                 target="_blank"
@@ -211,24 +327,10 @@ export function Booking({ services, barbers }: BookingProps) {
                 data-cursor="hover"
               >
                 <WhatsAppIcon size={18} />
-                <span>{t("whatsapp")}</span>
+                <span>{t("whatsappAgain")}</span>
               </a>
-              <button
-                type="button"
-                className="btn-ghost mt-4 inline-flex"
-                onClick={() => {
-                  setSuccess(null);
-                  setStep(0);
-                  setServiceId("");
-                  setBarberId(barbers.length === 1 ? barbers[0].id : "");
-                  setDate("");
-                  setTime("");
-                  setName("");
-                  setPhone("");
-                  setNotes("");
-                }}
-              >
-                {locale === "en" ? "New booking" : "Yeni rezervasiya"}
+              <button type="button" className="btn-ghost mt-4 inline-flex" onClick={resetForm}>
+                {t("newBooking")}
               </button>
             </motion.div>
           ) : (
@@ -241,9 +343,8 @@ export function Booking({ services, barbers }: BookingProps) {
               </div>
 
               <div className="p-5 md:p-8">
-                <ol className="mb-8 grid grid-cols-2 gap-2 md:grid-cols-4">
+                <ol className="mb-8 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-5">
                   {steps.map((key, i) => {
-                    const reachable = i <= step || (i < step + 1 && canNext());
                     const clickable = i < step;
                     return (
                       <li key={key}>
@@ -251,7 +352,7 @@ export function Booking({ services, barbers }: BookingProps) {
                           type="button"
                           disabled={!clickable}
                           onClick={() => clickable && setStep(i)}
-                          className={`w-full border px-3 py-2 text-left text-[0.65rem] uppercase tracking-[0.14em] transition ${
+                          className={`w-full border px-2 py-2 text-left text-[0.62rem] uppercase tracking-[0.12em] transition sm:px-3 sm:text-[0.65rem] sm:tracking-[0.14em] ${
                             i === step
                               ? "border-[var(--gold)] text-[var(--gold-soft)]"
                               : i < step
@@ -261,33 +362,21 @@ export function Booking({ services, barbers }: BookingProps) {
                         >
                           <span className="mr-1 text-[var(--gold)]">{i + 1}.</span>
                           {t(`steps.${key}`)}
-                          {!reachable && i === step ? null : null}
                         </button>
                       </li>
                     );
                   })}
                 </ol>
 
-                {(selectedService || selectedBarber) && (
+                {(selectedService || selectedBarber) && step < 4 && (
                   <div className="mb-6 flex flex-wrap gap-2 border border-[var(--line)] bg-black/25 px-4 py-3 text-sm text-[var(--text-muted)]">
                     {selectedService && (
                       <span className="text-[var(--gold-soft)]">
-                        {locale === "en" ? selectedService.nameEn : selectedService.nameAz}
-                        <span className="text-[var(--text-muted)]">
-                          {" "}
-                          ·{" "}
-                          {(locale === "en"
-                            ? selectedService.priceNoteEn
-                            : selectedService.priceNoteAz) ||
-                            `${selectedService.price} ${t("azn")}`}
-                        </span>
+                        {serviceLabel}
+                        <span className="text-[var(--text-muted)]"> · {priceLabel}</span>
                       </span>
                     )}
-                    {selectedBarber && (
-                      <span>
-                        · {locale === "en" ? selectedBarber.nameEn : selectedBarber.nameAz}
-                      </span>
-                    )}
+                    {selectedBarber && <span>· {barberLabel}</span>}
                     {date && time && (
                       <span>
                         · {date} {time}
@@ -352,13 +441,6 @@ export function Booking({ services, barbers }: BookingProps) {
                             );
                           })}
                         </div>
-                        {!serviceId && (
-                          <p className="mt-3 text-xs text-[var(--gold)]">
-                            {locale === "en"
-                              ? "Select a service to continue"
-                              : "Davam etmək üçün xidmət seçin"}
-                          </p>
-                        )}
                       </div>
                     )}
 
@@ -504,6 +586,29 @@ export function Booking({ services, barbers }: BookingProps) {
                         </label>
                       </div>
                     )}
+
+                    {step === 4 && (
+                      <div>
+                        <p className="font-display text-2xl text-[var(--gold-soft)]">
+                          {t("confirmTitle")}
+                        </p>
+                        <p className="mt-2 max-w-xl text-sm text-[var(--text-muted)]">
+                          {t("confirmHint")}
+                        </p>
+                        <div className="mt-6">
+                          <SummaryRows
+                            serviceName={serviceLabel}
+                            barberName={barberLabel}
+                            dateValue={date}
+                            timeValue={time}
+                            customerName={name.trim()}
+                            phoneValue={phone.trim()}
+                            notesValue={notes.trim() || null}
+                            priceValue={priceLabel}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </motion.div>
                 </AnimatePresence>
 
@@ -535,10 +640,11 @@ export function Booking({ services, barbers }: BookingProps) {
                   ) : (
                     <button
                       type="submit"
-                      className="btn-primary"
+                      className="btn-primary inline-flex items-center gap-2"
                       disabled={!canNext() || submitting}
                       data-cursor="hover"
                     >
+                      <WhatsAppIcon size={16} />
                       <span>{submitting ? t("submitting") : t("submit")}</span>
                     </button>
                   )}

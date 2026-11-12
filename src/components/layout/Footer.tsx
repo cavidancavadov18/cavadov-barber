@@ -7,8 +7,8 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[var(--line)] bg-[var(--bg-elevated)] pb-24 lg:pb-0">
-      <div className="section-pad mx-auto flex max-w-[1400px] flex-col gap-6 py-12 md:flex-row md:items-end md:justify-between">
+    <footer className="border-t border-[var(--line)] bg-[var(--bg-elevated)] pb-28 lg:pb-0">
+      <div className="section-pad mx-auto flex max-w-[1400px] flex-col gap-7 py-14 md:flex-row md:items-end md:justify-between md:py-12">
         <div>
           <p className="font-display text-2xl tracking-[0.28em] text-[var(--gold-soft)]">
             CAVADOV BARBER

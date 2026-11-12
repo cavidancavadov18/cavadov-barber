@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
-import { MagneticButton } from "@/components/ui/MagneticButton";
 import { HeroSmoke } from "@/components/ui/HeroSmoke";
 import { useSiteContent } from "@/components/layout/SiteContentContext";
 
@@ -40,13 +39,13 @@ export function Hero() {
     reduce
       ? undefined
       : {
-          initial: { opacity: 0, y: 42 },
+          initial: { opacity: 0, y: 36 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.9, delay: 0.25 + delay, ease },
+          transition: { duration: 0.9, delay: 0.2 + delay, ease },
         };
 
   return (
-    <section className="relative flex min-h-[78svh] items-end overflow-hidden md:min-h-[100svh]">
+    <section className="relative flex min-h-[90svh] items-end overflow-hidden md:min-h-[100svh]">
       <div className="absolute inset-0">
         <div className={reduce ? "h-full w-full" : "hero-media h-full w-full"}>
           {useVideo ? (
@@ -71,60 +70,47 @@ export function Hero() {
               fill
               priority
               sizes="100vw"
-              className="object-cover"
+              className="object-cover object-[center_20%] md:object-center"
               quality={80}
             />
           )}
         </div>
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.34)_0%,rgba(10,10,10,0.52)_40%,rgba(10,10,10,0.96)_100%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_18%,rgba(10,10,10,0.58)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(10,10,10,0.28)_0%,rgba(10,10,10,0.48)_38%,rgba(10,10,10,0.97)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_18%,rgba(10,10,10,0.55)_100%)]" />
         <div className="hero-glow pointer-events-none absolute inset-0" aria-hidden />
         <HeroSmoke />
       </div>
 
-      <div className="section-pad relative z-10 mx-auto w-full max-w-[1400px] pb-12 pt-28 md:pb-24 md:pt-36">
+      <div className="section-pad relative z-10 mx-auto w-full max-w-[1400px] pb-28 pt-32 md:pb-24 md:pt-36">
         <motion.p
-          className="font-display text-[clamp(2rem,10vw,8.6rem)] leading-[0.94] tracking-[0.06em] text-[var(--gold-soft)]"
+          className="font-display text-[clamp(1.9rem,9.2vw,8.6rem)] leading-[0.96] tracking-[0.05em] text-[var(--gold-soft)] md:tracking-[0.06em]"
           {...fadeUp(0.05)}
         >
           {t("brand")}
         </motion.p>
-        <motion.div className="gold-line gold-line--live mt-5 max-w-[12rem] md:mt-6 md:max-w-md" {...fadeUp(0.22)} />
+        <motion.div
+          className="gold-line gold-line--live mt-5 max-w-[9rem] md:mt-6 md:max-w-md"
+          {...fadeUp(0.18)}
+        />
         <motion.h1
-          className="mt-6 max-w-2xl text-[clamp(1.15rem,4.2vw,2rem)] font-light tracking-wide text-[var(--text)] md:mt-8"
-          {...fadeUp(0.32)}
+          className="mt-6 max-w-2xl text-[clamp(1.25rem,4.8vw,2rem)] font-light tracking-wide text-[var(--text)] md:mt-8"
+          {...fadeUp(0.28)}
         >
           {t("headline")}
         </motion.h1>
         <motion.p
-          className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-[var(--text-muted)] md:max-w-lg md:text-base"
-          {...fadeUp(0.42)}
+          className="mt-4 max-w-[20rem] text-[0.98rem] leading-[1.7] text-[var(--text-muted)] md:max-w-lg md:text-base"
+          {...fadeUp(0.36)}
         >
           {t("sub")}
         </motion.p>
-        <motion.div
-          className="mt-8 flex w-full flex-col gap-3.5 sm:mt-10 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
-          {...fadeUp(0.55)}
-        >
-          <div className="w-full sm:w-auto">
-            <MagneticButton href="#booking" className="btn-primary w-full sm:w-auto">
-              <span>{t("cta")}</span>
-              <span aria-hidden>→</span>
-            </MagneticButton>
-          </div>
-          <div className="w-full sm:w-auto">
-            <MagneticButton href="#menu" className="btn-ghost w-full sm:w-auto">
-              <span>{t("explore")}</span>
-            </MagneticButton>
-          </div>
-        </motion.div>
       </div>
 
       <a
         href="#menu"
-        className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-[0.58rem] uppercase tracking-[0.28em] text-[var(--gold-soft)] md:bottom-6"
+        className="absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 text-[0.58rem] uppercase tracking-[0.28em] text-[var(--gold-soft)] md:bottom-6 md:flex"
       >
-        <span className="scroll-cue h-7 w-px bg-[var(--gold)] md:h-8" />
+        <span className="scroll-cue h-8 w-px bg-[var(--gold)]" />
         Menu
       </a>
     </section>

@@ -42,8 +42,15 @@ next-env.d.ts
 # prisma
 /prisma/*.db
 /prisma/*.db-journal
+/prisma/seed.db
 
 # junk
 err.html
 admin-cookies.txt
 *.log
+
+public-tunnel-url.txt
+
+tmp-apk/
+*.keystore
+signing-key-info.txt

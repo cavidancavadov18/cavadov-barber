@@ -12,7 +12,7 @@ const schema = z.object({
   time: z.string().regex(/^\d{2}:\d{2}$/),
   locale: z.enum(["az", "en"]).default("az"),
   notes: z.string().optional().nullable(),
-  status: z.enum(["confirmed", "cancelled", "completed"]).default("confirmed"),
+  status: z.enum(["pending", "confirmed", "cancelled", "completed"]).default("pending"),
 });
 
 export async function GET() {

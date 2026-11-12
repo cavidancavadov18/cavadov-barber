@@ -11,7 +11,7 @@ export function Marquee({ text, className = "" }: MarqueeProps) {
 
   return (
     <div
-      className={`marquee-wrap overflow-hidden border-y border-[var(--line)] bg-[var(--bg-elevated)] py-4 ${className}`}
+      className={`marquee-wrap overflow-hidden border-y border-[var(--line)] bg-[var(--bg-elevated)] py-3.5 md:py-4 ${className}`}
       aria-hidden
     >
       <div className="marquee-track font-display text-[clamp(1.1rem,2.5vw,1.75rem)] tracking-[0.18em] uppercase text-[var(--gold-soft)]/85">

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { parseSectionHash } from "@/lib/section-ids";
-import { useSiteContent } from "@/components/layout/SiteContentContext";
+import { openInstallPrompt } from "@/components/layout/InstallApp";
 
 function goHome(scrollToMenu = false) {
   const { pathname, search } = window.location;
@@ -20,7 +20,7 @@ function goHome(scrollToMenu = false) {
 
 export function MobileDock() {
   const t = useTranslations("dock");
-  const { settings } = useSiteContent();
+  const tInstall = useTranslations("install");
   const [hash, setHash] = useState("");
 
   useEffect(() => {
@@ -35,9 +35,6 @@ export function MobileDock() {
   }, []);
 
   const section = parseSectionHash(hash);
-  const tel = settings.phoneTel.startsWith("+")
-    ? `tel:${settings.phoneTel}`
-    : `tel:+${settings.phoneTel.replace(/\D/g, "")}`;
 
   return (
     <nav
@@ -77,12 +74,12 @@ export function MobileDock() {
           </span>
           <span>{t("book")}</span>
         </a>
-        <a href={tel} className="dock-item">
+        <button type="button" onClick={() => openInstallPrompt()} className="dock-item dock-item--install">
           <span className="dock-ico" aria-hidden>
-            ☎
+            ↓
           </span>
-          <span>{t("call")}</span>
-        </a>
+          <span>{tInstall("dock")}</span>
+        </button>
       </div>
     </nav>
   );
