@@ -3,17 +3,19 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { assertAdmin, badRequest, ok } from "@/lib/admin-api";
 
-const schema = z.object({
-  barberId: z.string().min(1),
-  serviceId: z.string().min(1),
-  customerName: z.string().min(2),
-  phone: z.string().min(7),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  time: z.string().regex(/^\d{2}:\d{2}$/),
-  locale: z.enum(["az", "en"]).default("az"),
-  notes: z.string().optional().nullable(),
-  status: z.enum(["confirmed", "cancelled", "completed"]),
-});
+const schema = z
+  .object({
+    barberId: z.string().min(1).optional(),
+    serviceId: z.string().min(1).optional(),
+    customerName: z.string().min(2).optional(),
+    phone: z.string().min(7).optional(),
+    date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    time: z.string().regex(/^\d{2}:\d{2}$/).optional(),
+    locale: z.enum(["az", "en"]).optional(),
+    notes: z.string().optional().nullable(),
+    status: z.enum(["pending", "confirmed", "cancelled", "completed"]).optional(),
+  })
+  .refine((data) => Object.keys(data).length > 0, { message: "Empty update" });
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -27,7 +29,7 @@ export async function PUT(req: NextRequest, ctx: Ctx) {
       where: { id },
       data: {
         ...data,
-        notes: data.notes || null,
+        ...(data.notes !== undefined ? { notes: data.notes || null } : {}),
       },
       include: {
         service: { select: { id: true, nameAz: true, price: true } },

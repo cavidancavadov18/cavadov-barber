@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
         phone,
         notes: data.notes?.trim() || null,
         locale: data.locale,
-        status: "confirmed",
+        status: "pending",
       },
     });
 
@@ -128,6 +128,14 @@ export async function POST(req: NextRequest) {
         date: booking.date,
         time: booking.time,
         status: booking.status,
+        serviceName,
+        barberName,
+        customerName: data.customerName.trim(),
+        phone,
+        notes: data.notes?.trim() || null,
+        price: service.price,
+        priceNote:
+          data.locale === "en" ? service.priceNoteEn : service.priceNoteAz,
       },
       whatsappUrl,
     });

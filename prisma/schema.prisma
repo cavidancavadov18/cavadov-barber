@@ -56,7 +56,7 @@ model Booking {
   time         String
   locale       String   @default("az")
   notes        String?
-  status       String   @default("confirmed")
+  status       String   @default("pending")
   barber       Barber   @relation(fields: [barberId], references: [id])
   service      Service  @relation(fields: [serviceId], references: [id])
   createdAt    DateTime @default(now())

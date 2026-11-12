@@ -1,0 +1,18 @@
+services:
+  web:
+    build: .
+    container_name: cavadov-barber
+    ports:
+      - "3080:3000"
+    environment:
+      DATABASE_URL: "file:/app/data/prod.db"
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
+      NEXT_PUBLIC_WHATSAPP_NUMBER: ${NEXT_PUBLIC_WHATSAPP_NUMBER:-994553535368}
+      WHATSAPP_NUMBER: ${WHATSAPP_NUMBER:-994553535368}
+      ADMIN_SECRET: ${ADMIN_SECRET:-cavadov-barber-admin-secret-change-me}
+    volumes:
+      - barber-data:/app/data
+    restart: unless-stopped
+
+volumes:
+  barber-data:

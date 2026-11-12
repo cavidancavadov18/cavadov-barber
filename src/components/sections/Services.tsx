@@ -46,7 +46,7 @@ export function Services({ services }: { services: ServiceItem[] }) {
               </p>
             </div>
 
-            <ul className="flex flex-col gap-4 md:gap-5">
+            <ul className="flex flex-col gap-3.5 md:gap-5">
               {services.map((service) => {
                 const name = locale === "en" ? service.nameEn : service.nameAz;
                 const desc = locale === "en" ? service.descriptionEn : service.descriptionAz;
@@ -55,7 +55,7 @@ export function Services({ services }: { services: ServiceItem[] }) {
                     <a
                       href={`#booking?service=${service.slug}`}
                       data-cursor="hover"
-                      className="group flex items-start gap-4 border border-[var(--line)] bg-[var(--surface)] px-4 py-5 transition duration-300 hover:-translate-y-1 hover:border-[var(--gold)]/45 hover:shadow-[0_16px_40px_rgba(0,0,0,0.28)] md:items-center md:gap-6 md:px-6 md:py-6"
+                      className="group flex items-start gap-4 border border-[var(--line)] bg-[var(--surface)] px-4 py-[1.2rem] transition duration-300 hover:-translate-y-1 hover:border-[var(--gold)]/45 hover:shadow-[0_16px_40px_rgba(0,0,0,0.28)] sm:px-5 md:items-center md:gap-6 md:px-6 md:py-6"
                     >
                       <div className="media-frame media-frame--thumb overflow-hidden border border-[var(--line)]">
                         <Image

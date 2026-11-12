@@ -30,6 +30,19 @@
     "book": "Rezerv",
     "call": "Zəng"
   },
+  "install": {
+    "title": "Telefona quraşdır",
+    "subtitle": "CAVADOV BARBER-i telefona əlavə et.",
+    "button": "Install",
+    "download": "APK yüklə",
+    "later": "Bağla",
+    "gotIt": "Anladım",
+    "iosHint": "iPhone: Safari → Paylaş (□↑) → Ana ekrana əlavə et",
+    "androidHint": "Chrome-da aç → ⋮ menyu → Ana ekrana əlavə et",
+    "apkHint": "Android: düyməyə bas — APK birbaşa yüklənir. Sonra Aç / Quraşdır.",
+    "waitSw": "Hazırlanır…",
+    "dock": "Yüklə"
+  },
   "hero": {
     "brand": "CAVADOV BARBER",
     "headline": "Forma. Karakter. Prestij.",
@@ -91,12 +104,13 @@
   "booking": {
     "eyebrow": "Rezervasiya",
     "title": "Online rezervasiya",
-    "subtitle": "Xidmət, usta və vaxt seç — təsdiq WhatsApp-a göndərilir.",
+    "subtitle": "Xidmət, usta və vaxt seç — yoxla, təsdiqlə, Polada WhatsApp göndər.",
     "steps": {
       "service": "Xidmət",
       "barber": "Usta",
       "datetime": "Tarix & Saat",
-      "details": "Məlumat"
+      "details": "Məlumat",
+      "confirm": "Təsdiq"
     },
     "selectService": "Xidmət seçin",
     "selectBarber": "Usta seçin",
@@ -108,11 +122,24 @@
     "notes": "Qeyd (istəyə bağlı)",
     "next": "Davam et",
     "back": "Geri",
-    "submit": "Rezervasiyanı təsdiqlə",
+    "confirmTitle": "Rezervasiyanı yoxla",
+    "confirmHint": "Məlumatlar düzgündürsə təsdiqlə — Polada WhatsApp mesajı açılacaq.",
+    "summaryService": "Xidmət",
+    "summaryBarber": "Usta",
+    "summaryDate": "Tarix",
+    "summaryTime": "Saat",
+    "summaryName": "Ad",
+    "summaryPhone": "Telefon",
+    "summaryNotes": "Qeyd",
+    "summaryPrice": "Qiymət",
+    "submit": "Təsdiqlə və WhatsApp aç",
     "submitting": "Göndərilir...",
     "successTitle": "Rezervasiya qəbul olundu",
-    "successText": "Təsdiq üçün WhatsApp-a keçid edə bilərsiniz.",
-    "whatsapp": "WhatsApp-da aç",
+    "successText": "Polada təsdiq mesajı göndərin. Cavab gələndə növbəniz təsdiqlənir.",
+    "successPending": "Status: gözləmədə (Polad təsdiqləyəcək)",
+    "whatsapp": "Polada WhatsApp göndər",
+    "whatsappAgain": "WhatsApp-ı yenidən aç",
+    "newBooking": "Yeni rezervasiya",
     "error": "Xəta baş verdi. Yenidən cəhd edin.",
     "azn": "AZN"
   },

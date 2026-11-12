@@ -238,6 +238,78 @@ nextjs-portal,
   transform: translateX(6px);
 }
 
+.install-banner {
+  position: fixed;
+  left: 0.85rem;
+  right: 0.85rem;
+  bottom: calc(5.6rem + env(safe-area-inset-bottom));
+  z-index: 56;
+  pointer-events: none;
+}
+
+.install-banner__inner {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid rgba(201, 168, 76, 0.35);
+  background: rgba(12, 12, 12, 0.96);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.install-banner__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--gold-soft);
+  text-transform: uppercase;
+}
+
+.install-banner__sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.install-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+}
+
+.install-banner__btn {
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: #0a0a0a;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.65rem 0.85rem;
+  min-height: 2.5rem;
+}
+
+.install-banner__close {
+  width: 2.35rem;
+  height: 2.35rem;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+@media (min-width: 1024px) {
+  .install-banner {
+    display: none;
+  }
+}
+
 .wa-fab {
   position: fixed;
   right: max(1rem, env(safe-area-inset-right));
@@ -277,10 +349,10 @@ nextjs-portal,
 
 @media (max-width: 1023px) {
   .wa-fab {
-    bottom: calc(4.75rem + env(safe-area-inset-bottom));
-    right: max(0.9rem, env(safe-area-inset-right));
-    width: 3.15rem;
-    height: 3.15rem;
+    bottom: calc(5.35rem + env(safe-area-inset-bottom));
+    right: max(1rem, env(safe-area-inset-right));
+    width: 3.25rem;
+    height: 3.25rem;
   }
 }
 
@@ -353,48 +425,59 @@ nextjs-portal,
 
 @media (max-width: 767px) {
   :root {
-    --section-y: clamp(3.75rem, 11vw, 5.25rem);
-    --gap-media: 1rem;
+    --section-y: clamp(4.25rem, 12vw, 5.75rem);
+    --gap-media: 1.1rem;
   }
 
   .section-pad {
-    padding-inline: 1.25rem;
+    padding-inline: 1.35rem;
   }
 
   .heading-lg {
-    font-size: clamp(1.6rem, 7vw, 2.25rem);
-    letter-spacing: 0.04em;
-    line-height: 1.18;
+    font-size: clamp(1.75rem, 7.5vw, 2.35rem);
+    letter-spacing: 0.045em;
+    line-height: 1.2;
   }
 
   .eyebrow {
-    font-size: 0.66rem;
-    letter-spacing: 0.22em;
+    font-size: 0.68rem;
+    letter-spacing: 0.24em;
   }
 
   .btn-primary,
   .btn-ghost {
     width: 100%;
-    min-height: 3.15rem;
-    padding: 0.95rem 1.25rem;
+    min-height: 3.35rem;
+    padding: 1rem 1.35rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
   }
 
   .media-frame--thumb {
-    width: 3.6rem;
-    height: 3.6rem;
+    width: 4rem;
+    height: 4rem;
   }
 
   .media-grid {
-    gap: 1rem;
+    gap: 1.1rem;
+  }
+
+  .marquee-track {
+    font-size: clamp(0.95rem, 3.8vw, 1.2rem);
+    letter-spacing: 0.14em;
   }
 
   body {
-    padding-bottom: 5.5rem;
+    padding-bottom: 6.25rem;
   }
 
   .mobile-dock {
-    padding-top: 0.65rem;
-    padding-inline: 0.65rem;
+    padding-top: 0.55rem;
+    padding-inline: 0.55rem;
+  }
+
+  .menu-card {
+    border-radius: 2px;
   }
 }
 
@@ -403,12 +486,12 @@ nextjs-portal,
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.28rem;
-  min-height: 3.55rem;
-  border-radius: 12px;
+  gap: 0.35rem;
+  min-height: 3.75rem;
+  border-radius: 14px;
   color: var(--text-muted);
-  font-size: 0.62rem;
-  letter-spacing: 0.08em;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   background: transparent;
   border: 0;
@@ -418,15 +501,19 @@ nextjs-portal,
 .dock-item.is-active,
 .dock-item:active {
   color: var(--gold-soft);
-  background: rgba(201, 168, 76, 0.08);
+  background: rgba(201, 168, 76, 0.1);
 }
 
 .dock-item--wa {
   color: #7dcea0;
 }
 
+.dock-item--install {
+  color: var(--gold-soft);
+}
+
 .dock-ico {
-  font-size: 1rem;
+  font-size: 1.15rem;
   line-height: 1;
   color: inherit;
 }

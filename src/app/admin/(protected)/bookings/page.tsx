@@ -29,7 +29,7 @@ const empty = {
   time: "10:00",
   locale: "az",
   notes: "",
-  status: "confirmed",
+  status: "pending",
 };
 
 export default function AdminBookingsPage() {
@@ -114,6 +114,23 @@ export default function AdminBookingsPage() {
     await reload();
   }
 
+  async function setStatus(id: string, status: string) {
+    setBusy(true);
+    setMsg("");
+    try {
+      await apiJson(`/api/admin/bookings/${id}`, {
+        method: "PUT",
+        body: JSON.stringify({ status }),
+      });
+      setMsg(status === "confirmed" ? "Təsdiqləndi" : "Status yeniləndi");
+      await reload();
+    } catch (err) {
+      setMsg(err instanceof Error ? err.message : "Xəta");
+    } finally {
+      setBusy(false);
+    }
+  }
+
   return (
     <>
       <div className="admin-top">
@@ -174,9 +191,10 @@ export default function AdminBookingsPage() {
           </Field>
           <Field label="Status">
             <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
-              <option value="confirmed">confirmed</option>
-              <option value="completed">completed</option>
-              <option value="cancelled">cancelled</option>
+              <option value="pending">pending (gözləmə)</option>
+              <option value="confirmed">confirmed (təsdiq)</option>
+              <option value="completed">completed (bitib)</option>
+              <option value="cancelled">cancelled (ləğv)</option>
             </select>
           </Field>
           <Field label="Dil">
@@ -231,12 +249,30 @@ export default function AdminBookingsPage() {
                   {item.date} {item.time}
                 </td>
                 <td>
-                  <span className={`admin-badge ${item.status === "cancelled" ? "warn" : "ok"}`}>
+                  <span
+                    className={`admin-badge ${
+                      item.status === "cancelled"
+                        ? "warn"
+                        : item.status === "pending"
+                          ? "warn"
+                          : "ok"
+                    }`}
+                  >
                     {item.status}
                   </span>
                 </td>
                 <td>
                   <div className="admin-actions">
+                    {item.status === "pending" ? (
+                      <button
+                        type="button"
+                        className="admin-btn primary"
+                        disabled={busy}
+                        onClick={() => setStatus(item.id, "confirmed")}
+                      >
+                        Təsdiqlə
+                      </button>
+                    ) : null}
                     <button type="button" className="admin-btn" onClick={() => startEdit(item)}>
                       Edit
                     </button>
